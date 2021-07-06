@@ -6,8 +6,8 @@ import torch.nn.functional as F
 import torchvision as tv
 
 from utils import transforms
-from model.esresnet.base import _ESResNet
-from model.esresnet.base import Bottleneck
+from audioclip.esresnet.base import _ESResNet
+from audioclip.esresnet.base import Bottleneck
 
 from typing import cast
 from typing import List
@@ -135,6 +135,7 @@ class _ESResNetFBSP(_ESResNet):
         )
 
     def spectrogram(self, x: torch.Tensor) -> torch.Tensor:
+
         frames = transforms.frame_signal(
             signal=x.view(-1, x.shape[-1]),
             frame_length=self.win_length,
