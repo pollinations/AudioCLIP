@@ -14,6 +14,8 @@ from typing import Optional
 
 import numpy as np
 
+sample_rate = 44100
+
 ClipFeatures = Tuple[
     Optional[torch.Tensor],  # audio
     Optional[torch.Tensor],  # image
@@ -124,7 +126,7 @@ class AudioCLIP(CLIP):
     def create_audio_encoding(self, audio):
         if isinstance(audio, str):
             import librosa
-            wav, sample_rate = librosa.load(audio, sr=22050, mono=True)
+            wav, sample_rate = librosa.load(audio, sr=sample_rate, mono=True)
             if wav.ndim == 1:
                 wav = wav[:, np.newaxis]
         wav = wav.T * 32768.0
