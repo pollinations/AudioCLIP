@@ -7,11 +7,20 @@ from functools import lru_cache
 
 import ftfy
 import regex as re
-
+import urllib
 
 @lru_cache()
 def default_bpe():
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'assets', 'bpe_simple_vocab_16e6.txt.gz')
+   
+
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'assets', 'bpe_simple_vocab_16e6.txt.gz')
+    if not os.path.exists(path):
+        bpe = urllib.URLopener()
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        bpe.retrieve("https://github.com/AndreyGuzhov/AudioCLIP/releases/download/v0.1/bpe_simple_vocab_16e6.txt.gz", path)
+        
+    return path
+    
 
 
 @lru_cache()
