@@ -11,14 +11,10 @@ import urllib
 
 @lru_cache()
 def default_bpe():
-   
-
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'assets', 'bpe_simple_vocab_16e6.txt.gz')
     if not os.path.exists(path):
-        bpe = urllib.URLopener()
         os.makedirs(os.path.dirname(path), exist_ok=True)
-        bpe.retrieve("https://github.com/AndreyGuzhov/AudioCLIP/releases/download/v0.1/bpe_simple_vocab_16e6.txt.gz", path)
-        
+        urllib.request.urlretrieve("https://github.com/AndreyGuzhov/AudioCLIP/releases/download/v0.1/bpe_simple_vocab_16e6.txt.gz", path)
     return path
     
 
